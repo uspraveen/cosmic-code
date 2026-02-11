@@ -1,0 +1,21 @@
+{
+  "modelProviders": {
+    "anthropic": [
+      {
+        "id": "claude-sonnet-4-5",
+        "name": "Claude Sonnet 4.5",
+        "description": "Claude Sonnet 4.5 via Anthropic API",
+        "envKey": "ANTHROPIC_API_KEY",
+        "baseUrl": "https://api.anthropic.com/v1"
+      }
+    ]
+  },
+  "security": {
+    "auth": {
+      "selectedType": "anthropic"
+    }
+  },
+  "model": {
+    "name": "claude-sonnet-4-5"
+  }
+}
