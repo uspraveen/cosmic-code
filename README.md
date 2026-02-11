@@ -199,6 +199,21 @@ Qwen Code can be configured via `settings.json`, environment variables, and CLI 
 
 See [settings](https://qwenlm.github.io/qwen-code-docs/en/users/configuration/settings/) for available options and precedence.
 
+### Prompt personality and behavior
+
+For this Cosmic distribution, the primary assistant character/behavior prompt is defined in:
+
+- `packages/core/src/core/prompts.ts`
+
+This includes the "Tone and Style (Your Soul)" section used to shape assistant behavior.
+
+You can also override the system prompt at runtime with:
+
+- `.qwen/system.md` (project-level override file)
+- `QWEN_SYSTEM_MD` environment variable:
+  - set to `1`/`true` to load `.qwen/system.md`
+  - set to an explicit file path to load that file
+
 ### Cosmic distribution defaults (shared in repo)
 
 If you want everyone who clones this repo to see the same model list in `/model`, add your provider catalog to project settings at `.qwen/settings.json` and commit it.
