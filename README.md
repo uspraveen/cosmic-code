@@ -99,6 +99,69 @@ Your browser does not support the video tag.
 
 </details>
 
+## Getting Started (Cosmic Distribution)
+
+This section is the fastest path for new users of this fork.
+
+### 1) Clone this repository
+
+```bash
+git clone https://github.com/uspraveen/cosmic-code.git
+cd cosmic-code
+```
+
+### 2) Install and run from source
+
+```bash
+npm install
+npm run build
+npm run start
+```
+
+> Command compatibility note: even in Cosmic distribution, the CLI command remains `qwen`.
+
+### 3) Configure Anthropic API key
+
+This repo already includes shared model configuration in `.qwen/settings.json` with:
+
+- auth type: `anthropic`
+- model: `claude-sonnet-4-5`
+- env key: `ANTHROPIC_API_KEY`
+
+Set your own key locally (do not commit keys):
+
+Windows PowerShell:
+
+```powershell
+$env:ANTHROPIC_API_KEY="your-new-key-here"
+```
+
+macOS/Linux:
+
+```bash
+export ANTHROPIC_API_KEY="your-new-key-here"
+```
+
+### 4) Select and verify model
+
+Inside the CLI:
+
+```text
+/model
+```
+
+Choose:
+
+- `[anthropic] Claude Sonnet 4.5`
+
+Then test:
+
+```text
+hi
+```
+
+If you see `Missing credentials ... ANTHROPIC_API_KEY`, the env var is not set in the current shell session.
+
 ## Authentication
 
 Qwen Code supports two authentication methods:
