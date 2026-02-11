@@ -213,7 +213,7 @@ Example:
         "id": "claude-sonnet-4-5",
         "name": "Claude Sonnet 4.5",
         "envKey": "ANTHROPIC_API_KEY",
-        "baseUrl": "https://api.anthropic.com/v1"
+        "baseUrl": "https://api.anthropic.com"
       }
     ]
   },
@@ -235,6 +235,8 @@ $env:ANTHROPIC_API_KEY="your-key-here"
 ```
 
 Note: this repository currently ignores `.qwen/` in `.gitignore`. Remove or override that ignore rule before committing `.qwen/settings.json`.
+
+For Anthropic in this distribution, use the root API URL (`https://api.anthropic.com`) rather than appending `/v1` in `modelProviders`.
 
 ## Benchmark Results
 

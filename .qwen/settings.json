@@ -6,7 +6,7 @@
         "name": "Claude Sonnet 4.5",
         "description": "Claude Sonnet 4.5 via Anthropic API",
         "envKey": "ANTHROPIC_API_KEY",
-        "baseUrl": "https://api.anthropic.com/v1"
+        "baseUrl": "https://api.anthropic.com"
       }
     ]
   },
@@ -17,5 +17,6 @@
   },
   "model": {
     "name": "claude-sonnet-4-5"
-  }
+  },
+  "$version": 3
 }
