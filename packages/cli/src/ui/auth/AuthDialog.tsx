@@ -19,8 +19,7 @@ import { useUIActions } from '../contexts/UIActionsContext.js';
 import { useConfig } from '../contexts/ConfigContext.js';
 import { t } from '../../i18n/index.js';
 
-const MODEL_PROVIDERS_DOCUMENTATION_URL =
-  'https://qwenlm.github.io/qwen-code-docs/en/users/configuration/settings/#modelproviders';
+const MODEL_PROVIDERS_DOCUMENTATION_URL = 'https://cosmic.thelearnchain.com';
 
 function parseDefaultAuthType(
   defaultAuthType: string | undefined,
@@ -58,7 +57,7 @@ export function AuthDialog(): React.JSX.Element {
   const mainItems = [
     {
       key: AuthType.QWEN_OAUTH,
-      label: t('Qwen OAuth'),
+      label: t('Cosmic OAuth'),
       value: AuthType.QWEN_OAUTH,
     },
     {
@@ -217,7 +216,7 @@ export function AuthDialog(): React.JSX.Element {
       <Box marginTop={1} paddingLeft={2}>
         <Text color={Colors.Gray}>
           {currentSelectedAuthType === AuthType.QWEN_OAUTH
-            ? t('Login with QwenChat account to use daily free quota.')
+            ? t('Login with Cosmic account to use daily free quota.')
             : t('Use coding plan credentials or your own api-keys/providers.')}
         </Text>
       </Box>
@@ -384,21 +383,17 @@ export function AuthDialog(): React.JSX.Element {
             <Box marginTop={1}>
               <Text color={theme?.text?.secondary}>
                 {t(
-                  'Note: Your existing API key in settings.json will not be cleared when using Qwen OAuth. You can switch back to OpenAI authentication later if needed.',
+                  'Note: Your existing API key in settings.json will not be cleared when using Cosmic OAuth. You can switch back to OpenAI authentication later if needed.',
                 )}
               </Text>
             </Box>
           )}
           <Box marginTop={1}>
-            <Text>
-              {t('Terms of Services and Privacy Notice for Qwen Code')}
-            </Text>
+            <Text>{t('Terms of Services and Privacy Notice for Cosmic')}</Text>
           </Box>
           <Box marginTop={1}>
             <Text color={Colors.AccentBlue}>
-              {
-                'https://qwenlm.github.io/qwen-code-docs/en/users/support/tos-privacy/'
-              }
+              {'https://cosmic.thelearnchain.com'}
             </Text>
           </Box>
         </>

@@ -18,14 +18,17 @@
 
 </div>
 
-Qwen Code is an open-source AI agent for the terminal, optimized for [Qwen3-Coder](https://github.com/QwenLM/Qwen3-Coder). It helps you understand large codebases, automate tedious work, and ship faster.
+Cosmic is LearnChain's distribution of Qwen Code for the terminal, optimized for [Qwen3-Coder](https://github.com/QwenLM/Qwen3-Coder). It helps you understand large codebases, automate tedious work, and ship faster.
+
+> Cosmic website: https://cosmic.thelearnchain.com  
+> Compatibility note: this distribution currently keeps the CLI command name as `qwen`.
 
 ![](https://gw.alicdn.com/imgextra/i1/O1CN01D2DviS1wwtEtMwIzJ_!!6000000006373-2-tps-1600-900.png)
 
-## Why Qwen Code?
+## Why Cosmic (This Distribution)?
 
-- **Multi-protocol, OAuth free tier**: use OpenAI / Anthropic / Gemini-compatible APIs, or sign in with Qwen OAuth for 1,000 free requests/day.
-- **Open-source, co-evolving**: both the framework and the Qwen3-Coder model are open-source—and they ship and evolve together.
+- **Multi-protocol, OAuth free tier**: use OpenAI / Anthropic / Gemini-compatible APIs, or sign in with OAuth for free-tier usage.
+- **Open-source, co-evolving**: both the framework and the Qwen3-Coder model are open-source—and this distribution evolves with your team workflows.
 - **Agentic workflow, feature-rich**: rich built-in tools (Skills, SubAgents) for a full agentic workflow and a Claude Code-like experience.
 - **Terminal-first, IDE-friendly**: built for developers who live in the command line, with optional integration for VS Code, Zed, and JetBrains IDEs.
 
@@ -68,7 +71,7 @@ brew install qwen-code
 ## Quick Start
 
 ```bash
-# Start Qwen Code (interactive)
+# Start Cosmic (interactive, command is still `qwen`)
 qwen
 
 # Then, in the session:
@@ -195,6 +198,43 @@ Qwen Code can be configured via `settings.json`, environment variables, and CLI 
 - **Project settings**: `.qwen/settings.json`
 
 See [settings](https://qwenlm.github.io/qwen-code-docs/en/users/configuration/settings/) for available options and precedence.
+
+### Cosmic distribution defaults (shared in repo)
+
+If you want everyone who clones this repo to see the same model list in `/model`, add your provider catalog to project settings at `.qwen/settings.json` and commit it.
+
+Example:
+
+```json
+{
+  "modelProviders": {
+    "anthropic": [
+      {
+        "id": "claude-sonnet-4-5",
+        "name": "Claude Sonnet 4.5",
+        "envKey": "ANTHROPIC_API_KEY",
+        "baseUrl": "https://api.anthropic.com/v1"
+      }
+    ]
+  },
+  "security": {
+    "auth": {
+      "selectedType": "anthropic"
+    }
+  },
+  "model": {
+    "name": "claude-sonnet-4-5"
+  }
+}
+```
+
+Set the API key in environment variables, not in git-tracked files:
+
+```powershell
+$env:ANTHROPIC_API_KEY="your-key-here"
+```
+
+Note: this repository currently ignores `.qwen/` in `.gitignore`. Remove or override that ignore rule before committing `.qwen/settings.json`.
 
 ## Benchmark Results
 

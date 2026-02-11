@@ -56,7 +56,7 @@ function QrCodeDisplay({
       width="100%"
     >
       <Text bold color={Colors.AccentBlue}>
-        {t('Qwen OAuth Authentication')}
+        {t('Cosmic OAuth Authentication')}
       </Text>
 
       <Box marginTop={1}>
@@ -222,7 +222,7 @@ export function QwenOAuthProgress({
         width="100%"
       >
         <Text bold color={Colors.AccentRed}>
-          {t('Qwen OAuth Authentication Timeout')}
+          {t('Cosmic OAuth Authentication Timeout')}
         </Text>
 
         <Box marginTop={1}>
@@ -256,7 +256,7 @@ export function QwenOAuthProgress({
         width="100%"
       >
         <Text bold color={Colors.AccentRed}>
-          Qwen OAuth Authentication Error
+          Cosmic OAuth Authentication Error
         </Text>
 
         <Box marginTop={1}>
@@ -288,7 +288,7 @@ export function QwenOAuthProgress({
         <Box>
           <Text>
             <Spinner type="dots" />
-            {t('Waiting for Qwen OAuth authentication...')}
+            {t('Waiting for Cosmic OAuth authentication...')}
           </Text>
         </Box>
         <Box marginTop={1} justifyContent="space-between">

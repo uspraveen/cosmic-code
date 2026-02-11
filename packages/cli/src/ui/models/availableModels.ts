@@ -28,7 +28,7 @@ export const AVAILABLE_MODELS_QWEN: AvailableModel[] = [
     label: MAINLINE_CODER,
     get description() {
       return t(
-        'The latest Qwen Coder model from Alibaba Cloud ModelStudio (version: qwen3-coder-plus-2025-09-23)',
+        'The latest Cosmic Coder model from LearnChain (version: qwen3-coder-plus-2025-09-23). Learn more: https://cosmic.thelearnchain.com',
       );
     },
   },
@@ -37,7 +37,7 @@ export const AVAILABLE_MODELS_QWEN: AvailableModel[] = [
     label: MAINLINE_VLM,
     get description() {
       return t(
-        'The latest Qwen Vision model from Alibaba Cloud ModelStudio (version: qwen3-vl-plus-2025-09-23)',
+        'The latest Cosmic Vision model from LearnChain (version: qwen3-vl-plus-2025-09-23). Learn more: https://cosmic.thelearnchain.com',
       );
     },
     isVision: true,

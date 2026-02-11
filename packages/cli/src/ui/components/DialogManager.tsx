@@ -258,7 +258,7 @@ export const DialogManager = ({
           authStatus={uiState.qwenAuthState.authStatus}
           authMessage={uiState.qwenAuthState.authMessage}
           onTimeout={() => {
-            uiActions.onAuthError('Qwen OAuth authentication timed out.');
+            uiActions.onAuthError('Cosmic OAuth authentication timed out.');
             uiActions.cancelAuthentication();
             uiActions.setAuthState(AuthState.Updating);
           }}

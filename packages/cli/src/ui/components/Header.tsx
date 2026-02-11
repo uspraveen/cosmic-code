@@ -42,7 +42,7 @@ function formatAuthType(authType?: AuthType): string {
 
   switch (authType) {
     case AuthType.QWEN_OAUTH:
-      return 'Qwen OAuth';
+      return 'Cosmic OAuth';
     case AuthType.USE_OPENAI:
       return 'OpenAI';
     case AuthType.USE_GEMINI:
@@ -158,10 +158,10 @@ export const Header: React.FC<HeaderProps> = ({
         flexGrow={showLogo ? 0 : 1}
         width={showLogo ? availableInfoPanelWidth : undefined}
       >
-        {/* Title line: >_ Qwen Code (v{version}) */}
+        {/* Title line: >_ Cosmic (v{version}) */}
         <Text>
           <Text bold color={theme.text.accent}>
-            &gt;_ Qwen Code
+            &gt;_ Cosmic
           </Text>
           <Text color={theme.text.secondary}> (v{version})</Text>
         </Text>
