@@ -63,6 +63,19 @@ const VALID_APPROVAL_MODE_VALUES = [
   'yolo',
 ] as const;
 
+const COSMIC_DEFAULT_MODEL_PROVIDERS: NonNullable<Settings['modelProviders']> =
+  {
+    anthropic: [
+      {
+        id: 'claude-sonnet-4-5',
+        name: 'Claude Sonnet 4.5',
+        description: 'Claude Sonnet 4.5 via Anthropic API',
+        envKey: 'ANTHROPIC_API_KEY',
+        baseUrl: 'https://api.anthropic.com',
+      },
+    ],
+  };
+
 function formatApprovalModeError(value: string): Error {
   return new Error(
     `Invalid approval mode: ${value}. Valid values are: ${VALID_APPROVAL_MODE_VALUES.join(
@@ -901,7 +914,8 @@ export async function loadCliConfig(
     }
   }
 
-  const modelProvidersConfig = settings.modelProviders;
+  const modelProvidersConfig =
+    settings.modelProviders ?? structuredClone(COSMIC_DEFAULT_MODEL_PROVIDERS);
 
   const config = new Config({
     sessionId,

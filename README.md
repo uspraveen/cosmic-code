@@ -279,7 +279,9 @@ You can also override the system prompt at runtime with:
 
 ### Cosmic distribution defaults (shared in repo)
 
-If you want everyone who clones this repo to see the same model list in `/model`, add your provider catalog to project settings at `.qwen/settings.json` and commit it.
+Cosmic distribution includes a built-in Anthropic provider/model entry (`claude-sonnet-4-5`) for `/model`, including installer usage.
+
+This repository also commits `.qwen/settings.json` to pin the default workspace selection (`anthropic` + `claude-sonnet-4-5`) when users clone and run inside this repo.
 
 Example:
 
@@ -312,7 +314,7 @@ Set the API key in environment variables, not in git-tracked files:
 $env:ANTHROPIC_API_KEY="your-key-here"
 ```
 
-Note: this repository currently ignores `.qwen/` in `.gitignore`. Remove or override that ignore rule before committing `.qwen/settings.json`.
+In this repository, `.gitignore` is already configured to track `.qwen/settings.json` while still ignoring other `.qwen/*` files.
 
 For Anthropic in this distribution, use the root API URL (`https://api.anthropic.com`) rather than appending `/v1` in `modelProviders`.
 
