@@ -6,7 +6,6 @@
 
 import type React from 'react';
 import { Box, Text } from 'ink';
-import Gradient from 'ink-gradient';
 import { AuthType, shortenPath, tildeifyPath } from '@qwen-code/qwen-code-core';
 import { theme } from '../semantic-colors.js';
 import { shortAsciiLogo } from './AsciiArt.js';
@@ -122,13 +121,6 @@ export const Header: React.FC<HeaderProps> = ({
         ? shortenedPath.slice(0, maxPathLength)
         : shortenedPath;
 
-  // Use theme gradient colors if available, otherwise use text colors (excluding primary)
-  const gradientColors = theme.ui.gradient || [
-    theme.text.secondary,
-    theme.text.link,
-    theme.text.accent,
-  ];
-
   return (
     <Box
       flexDirection="row"
@@ -140,9 +132,9 @@ export const Header: React.FC<HeaderProps> = ({
       {showLogo && (
         <>
           <Box flexShrink={0}>
-            <Gradient colors={gradientColors}>
-              <Text>{displayLogo}</Text>
-            </Gradient>
+            <Text color="redBright" backgroundColor="black">
+              {displayLogo}
+            </Text>
           </Box>
           {/* Fixed gap between logo and info panel */}
           <Box width={logoGap} />
