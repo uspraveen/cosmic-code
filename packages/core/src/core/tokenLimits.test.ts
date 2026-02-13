@@ -148,7 +148,7 @@ describe('tokenLimit', () => {
       expect(tokenLimit('claude-3.7-sonnet')).toBe(1048576);
     });
     it('should return the correct limit for Claude Sonnet 4', () => {
-      expect(tokenLimit('claude-sonnet-4')).toBe(1048576);
+      expect(tokenLimit('claude-sonnet-4')).toBe(200000);
     });
     it('should return the correct limit for Claude Opus 4', () => {
       expect(tokenLimit('claude-opus-4')).toBe(1048576);
@@ -324,6 +324,11 @@ describe('tokenLimit with output type', () => {
     it('should return different limits for input vs output for qwen3-vl-plus', () => {
       expect(tokenLimit('qwen3-vl-plus', 'input')).toBe(262144); // 256K input
       expect(tokenLimit('qwen3-vl-plus', 'output')).toBe(32768); // 32K output
+    });
+
+    it('should return different limits for input vs output for claude-sonnet-4-5', () => {
+      expect(tokenLimit('claude-sonnet-4-5', 'input')).toBe(200000); // 200K input
+      expect(tokenLimit('claude-sonnet-4-5', 'output')).toBe(65536); // 64K output
     });
 
     it('should return same default limits for unknown models', () => {

@@ -103,11 +103,11 @@ const PATTERNS: Array<[RegExp, TokenCount]> = [
 
   // -------------------
   // Anthropic Claude
-  // - Claude Sonnet / Sonnet 3.5 and related Sonnet variants: 200,000 tokens documented.
-  // - Some Sonnet/Opus models offer 1M in beta/enterprise tiers (handled separately if needed).
+  // - Claude Sonnet / Sonnet 3.5 and Sonnet 4 variants: 200,000 tokens documented.
+  // - Some models offer 1M in beta/enterprise tiers (handled separately if needed).
   [/^claude-3\.5-sonnet.*$/, LIMITS['200k']],
   [/^claude-3\.7-sonnet.*$/, LIMITS['1m']], // some Sonnet 3.7/Opus variants advertise 1M beta in docs
-  [/^claude-sonnet-4.*$/, LIMITS['1m']],
+  [/^claude-sonnet-4.*$/, LIMITS['200k']],
   [/^claude-opus-4.*$/, LIMITS['1m']],
 
   // -------------------
@@ -193,6 +193,12 @@ const PATTERNS: Array<[RegExp, TokenCount]> = [
  * in a single response for specific models.
  */
 const OUTPUT_PATTERNS: Array<[RegExp, TokenCount]> = [
+  // -------------------
+  // Anthropic Claude
+  // -------------------
+  // Claude Sonnet 4 family: 64K max output tokens
+  [/^claude-sonnet-4.*$/, LIMITS['64k']],
+
   // -------------------
   // Alibaba / Qwen - DashScope Models
   // -------------------

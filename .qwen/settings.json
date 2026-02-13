@@ -16,7 +16,10 @@
     }
   },
   "model": {
-    "name": "claude-sonnet-4-5"
+    "name": "claude-sonnet-4-5",
+    "chatCompression": {
+      "contextPercentageThreshold": 0.25
+    }
   },
   "$version": 3
 }
