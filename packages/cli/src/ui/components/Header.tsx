@@ -110,6 +110,7 @@ export const Header: React.FC<HeaderProps> = ({
     infoPanelContentWidth > 0 &&
     getCachedStringWidth(authModelText + modelHintText) <=
       infoPanelContentWidth;
+  const cosmicBlue = '#C0C0C0';
 
   // Now shorten the path to fit the available space
   const tildeifiedPath = tildeifyPath(workingDirectory);
@@ -132,7 +133,7 @@ export const Header: React.FC<HeaderProps> = ({
       {showLogo && (
         <>
           <Box flexShrink={0}>
-            <Text color="redBright" backgroundColor="black">
+            <Text color={cosmicBlue} backgroundColor="black">
               {displayLogo}
             </Text>
           </Box>
@@ -152,10 +153,10 @@ export const Header: React.FC<HeaderProps> = ({
       >
         {/* Title line: >_ Cosmic (v{version}) */}
         <Text>
-          <Text bold color={theme.text.accent}>
+          <Text bold color={cosmicBlue}>
             &gt;_ Cosmic
           </Text>
-          <Text color={theme.text.secondary}> (v{version})</Text>
+          <Text color={cosmicBlue}> (v{version})</Text>
         </Text>
         {/* Empty line for spacing */}
         <Text> </Text>
