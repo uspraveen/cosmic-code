@@ -120,27 +120,69 @@ npm run start
 
 > Command compatibility note: even in Cosmic distribution, the CLI command remains `qwen`.
 
-### 3) Configure Anthropic API key
+### 3) Configure API keys (Anthropic + Fireworks)
 
-This repo already includes shared model configuration in `.qwen/settings.json` with:
+This repo already includes shared model configuration in `.qwen/settings.json`:
 
-- auth type: `anthropic`
-- model: `claude-sonnet-4-5`
-- env key: `ANTHROPIC_API_KEY`
+- `anthropic` provider:
+  - `claude-sonnet-4-5` (uses `ANTHROPIC_API_KEY`)
+  - `claude-opus-4-6` (uses `ANTHROPIC_API_KEY`)
+- `openai` provider:
+  - `accounts/fireworks/models/glm-5` (uses `FIREWORKS_API_KEY`)
+- default selection in this repo:
+  - auth type: `anthropic`
+  - model: `claude-sonnet-4-5`
 
-Set your own key locally (do not commit keys):
+Set the key(s) you need locally (never commit secrets):
 
-Windows PowerShell:
+Windows PowerShell (current shell only):
 
 ```powershell
-$env:ANTHROPIC_API_KEY="your-new-key-here"
+$env:ANTHROPIC_API_KEY="your-anthropic-key"
+$env:FIREWORKS_API_KEY="your-fireworks-key"
 ```
 
-macOS/Linux:
+macOS/Linux (current shell only):
 
 ```bash
-export ANTHROPIC_API_KEY="your-new-key-here"
+export ANTHROPIC_API_KEY="your-anthropic-key"
+export FIREWORKS_API_KEY="your-fireworks-key"
 ```
+
+You can also place keys in a local env file (recommended for development):
+
+- `.qwen/.env` (preferred)
+- or `.env` in the project/root
+
+Example `.qwen/.env`:
+
+```env
+ANTHROPIC_API_KEY=your-anthropic-key
+FIREWORKS_API_KEY=your-fireworks-key
+```
+
+Env precedence in this CLI is:
+
+`CLI flags > shell environment > .env file > settings.env > defaults`
+
+Persistent setup (optional):
+
+Windows PowerShell (user-level):
+
+```powershell
+[Environment]::SetEnvironmentVariable("ANTHROPIC_API_KEY", "your-anthropic-key", "User")
+[Environment]::SetEnvironmentVariable("FIREWORKS_API_KEY", "your-fireworks-key", "User")
+```
+
+macOS/Linux (append to shell profile):
+
+```bash
+echo 'export ANTHROPIC_API_KEY="your-anthropic-key"' >> ~/.bashrc
+echo 'export FIREWORKS_API_KEY="your-fireworks-key"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+> Restart your terminal after persistent env changes.
 
 ### 4) Select and verify model
 
@@ -153,6 +195,8 @@ Inside the CLI:
 Choose:
 
 - `[anthropic] Claude Sonnet 4.5`
+- `[anthropic] Claude Opus 4.6`
+- `[openai] Fireworks GLM-5`
 
 Then test:
 
@@ -160,7 +204,7 @@ Then test:
 hi
 ```
 
-If you see `Missing credentials ... ANTHROPIC_API_KEY`, the env var is not set in the current shell session.
+If you see `Missing credentials ... ANTHROPIC_API_KEY` or `... FIREWORKS_API_KEY`, that env var is not set for the selected model in the current shell session.
 
 ## Authentication
 
@@ -279,9 +323,19 @@ You can also override the system prompt at runtime with:
 
 ### Cosmic distribution defaults (shared in repo)
 
-Cosmic distribution includes a built-in Anthropic provider/model entry (`claude-sonnet-4-5`) for `/model`, including installer usage.
+Cosmic distribution includes a built-in fallback Anthropic provider/model entry (`claude-sonnet-4-5`) for `/model`.
 
-This repository also commits `.qwen/settings.json` to pin the default workspace selection (`anthropic` + `claude-sonnet-4-5`) when users clone and run inside this repo.
+This repository also commits `.qwen/settings.json` with additional provider/model entries and workspace defaults:
+
+- Anthropic:
+  - `claude-sonnet-4-5`
+  - `claude-opus-4-6` (`contextWindowSize: 200000`, `max_tokens: 128000`)
+- OpenAI-compatible (Fireworks):
+  - `accounts/fireworks/models/glm-5` (`baseUrl: https://api.fireworks.ai/inference/v1`, `contextWindowSize: 198000`)
+- Default workspace selection:
+  - `security.auth.selectedType: anthropic`
+  - `model.name: claude-sonnet-4-5`
+  - `model.chatCompression.contextPercentageThreshold: 0.25`
 
 Example:
 
@@ -294,6 +348,20 @@ Example:
         "name": "Claude Sonnet 4.5",
         "envKey": "ANTHROPIC_API_KEY",
         "baseUrl": "https://api.anthropic.com"
+      },
+      {
+        "id": "claude-opus-4-6",
+        "name": "Claude Opus 4.6",
+        "envKey": "ANTHROPIC_API_KEY",
+        "baseUrl": "https://api.anthropic.com"
+      }
+    ],
+    "openai": [
+      {
+        "id": "accounts/fireworks/models/glm-5",
+        "name": "Fireworks GLM-5",
+        "envKey": "FIREWORKS_API_KEY",
+        "baseUrl": "https://api.fireworks.ai/inference/v1"
       }
     ]
   },
@@ -312,6 +380,7 @@ Set the API key in environment variables, not in git-tracked files:
 
 ```powershell
 $env:ANTHROPIC_API_KEY="your-key-here"
+$env:FIREWORKS_API_KEY="your-key-here"
 ```
 
 In this repository, `.gitignore` is already configured to track `.qwen/settings.json` while still ignoring other `.qwen/*` files.
