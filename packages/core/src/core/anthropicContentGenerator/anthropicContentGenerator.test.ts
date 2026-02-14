@@ -392,7 +392,11 @@ describe('AnthropicContentGenerator', () => {
             message: {
               id: 'msg-1',
               model: 'claude-test',
-              usage: { cache_read_input_tokens: 2, input_tokens: 3 },
+              usage: {
+                cache_read_input_tokens: 2,
+                cache_creation_input_tokens: 11,
+                input_tokens: 3,
+              },
             },
           };
 
@@ -454,6 +458,7 @@ describe('AnthropicContentGenerator', () => {
               output_tokens: 5,
               input_tokens: 7,
               cache_read_input_tokens: 2,
+              cache_creation_input_tokens: 11,
             },
           };
           yield { type: 'message_stop' };
@@ -515,9 +520,9 @@ describe('AnthropicContentGenerator', () => {
       expect(last.candidates?.[0]?.finishReason).toBe(FinishReason.STOP);
       expect(last.usageMetadata).toEqual({
         cachedContentTokenCount: 2,
-        promptTokenCount: 9, // cached(2) + input(7)
+        promptTokenCount: 20, // cache_creation(11) + cache_read(2) + input(7)
         candidatesTokenCount: 5,
-        totalTokenCount: 14,
+        totalTokenCount: 25,
       });
     });
   });

@@ -7,6 +7,39 @@
         "description": "Claude Sonnet 4.5 via Anthropic API",
         "envKey": "ANTHROPIC_API_KEY",
         "baseUrl": "https://api.anthropic.com"
+      },
+      {
+        "id": "claude-opus-4-6",
+        "name": "Claude Opus 4.6",
+        "description": "Claude Opus 4.6 via Anthropic API",
+        "envKey": "ANTHROPIC_API_KEY",
+        "baseUrl": "https://api.anthropic.com",
+        "generationConfig": {
+          "contextWindowSize": 200000,
+          "samplingParams": {
+            "max_tokens": 128000
+          }
+        }
+      }
+    ],
+    "openai": [
+      {
+        "id": "accounts/fireworks/models/glm-5",
+        "name": "Fireworks GLM-5",
+        "description": "GLM-5 via Fireworks AI OpenAI-compatible API",
+        "envKey": "FIREWORKS_API_KEY",
+        "baseUrl": "https://api.fireworks.ai/inference/v1",
+        "generationConfig": {
+          "contextWindowSize": 198000,
+          "samplingParams": {
+            "max_tokens": 4096,
+            "top_p": 1,
+            "top_k": 40,
+            "presence_penalty": 0,
+            "frequency_penalty": 0,
+            "temperature": 0.6
+          }
+        }
       }
     ]
   },

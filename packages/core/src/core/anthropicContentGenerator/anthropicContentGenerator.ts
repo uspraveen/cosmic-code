@@ -285,7 +285,8 @@ export class AnthropicContentGenerator implements ContentGenerator {
   ): AsyncGenerator<GenerateContentResponse> {
     let messageId: string | undefined;
     let model = this.contentGeneratorConfig.model;
-    let cachedTokens = 0;
+    let cacheReadTokens = 0;
+    let cacheCreationTokens = 0;
     let promptTokens = 0;
     let completionTokens = 0;
     let finishReason: string | undefined;
@@ -298,8 +299,11 @@ export class AnthropicContentGenerator implements ContentGenerator {
         case 'message_start': {
           messageId = event.message.id ?? messageId;
           model = event.message.model ?? model;
-          cachedTokens =
-            event.message.usage?.cache_read_input_tokens ?? cachedTokens;
+          cacheReadTokens =
+            event.message.usage?.cache_read_input_tokens ?? cacheReadTokens;
+          cacheCreationTokens =
+            event.message.usage?.cache_creation_input_tokens ??
+            cacheCreationTokens;
           promptTokens = event.message.usage?.input_tokens ?? promptTokens;
           break;
         }
@@ -423,21 +427,29 @@ export class AnthropicContentGenerator implements ContentGenerator {
           if (usageRecord?.['cache_read_input_tokens'] !== undefined) {
             const cacheRead = usageRecord['cache_read_input_tokens'];
             if (typeof cacheRead === 'number') {
-              cachedTokens = cacheRead;
+              cacheReadTokens = cacheRead;
+            }
+          }
+          if (usageRecord?.['cache_creation_input_tokens'] !== undefined) {
+            const cacheCreation = usageRecord['cache_creation_input_tokens'];
+            if (typeof cacheCreation === 'number') {
+              cacheCreationTokens = cacheCreation;
             }
           }
 
           if (finishReason || event.usage) {
+            const totalPromptTokens =
+              promptTokens + cacheReadTokens + cacheCreationTokens;
             const chunk = this.buildGeminiChunk(
               undefined,
               messageId,
               model,
               finishReason,
               {
-                cachedContentTokenCount: cachedTokens,
-                promptTokenCount: cachedTokens + promptTokens,
+                cachedContentTokenCount: cacheReadTokens,
+                promptTokenCount: totalPromptTokens,
                 candidatesTokenCount: completionTokens,
-                totalTokenCount: cachedTokens + promptTokens + completionTokens,
+                totalTokenCount: totalPromptTokens + completionTokens,
               },
             );
             collectedResponses.push(chunk);
@@ -447,16 +459,18 @@ export class AnthropicContentGenerator implements ContentGenerator {
         }
         case 'message_stop': {
           if (promptTokens || completionTokens) {
+            const totalPromptTokens =
+              promptTokens + cacheReadTokens + cacheCreationTokens;
             const chunk = this.buildGeminiChunk(
               undefined,
               messageId,
               model,
               finishReason,
               {
-                cachedContentTokenCount: cachedTokens,
-                promptTokenCount: cachedTokens + promptTokens,
+                cachedContentTokenCount: cacheReadTokens,
+                promptTokenCount: totalPromptTokens,
                 candidatesTokenCount: completionTokens,
-                totalTokenCount: cachedTokens + promptTokens + completionTokens,
+                totalTokenCount: totalPromptTokens + completionTokens,
               },
             );
             collectedResponses.push(chunk);

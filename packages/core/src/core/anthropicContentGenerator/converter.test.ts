@@ -757,16 +757,22 @@ describe('AnthropicContentConverter', () => {
           { type: 'tool_use', id: 't1', name: 'tool', input: { x: 1 } },
           { type: 'redacted_thinking' },
         ],
-        usage: { input_tokens: 3, output_tokens: 5 },
+        usage: {
+          input_tokens: 3,
+          output_tokens: 5,
+          cache_read_input_tokens: 2,
+          cache_creation_input_tokens: 7,
+        },
       } as unknown as Anthropic.Message);
 
       expect(response.responseId).toBe('msg-1');
       expect(response.modelVersion).toBe('claude-test');
       expect(response.candidates?.[0]?.finishReason).toBe(FinishReason.STOP);
       expect(response.usageMetadata).toEqual({
-        promptTokenCount: 3,
+        promptTokenCount: 12,
+        cachedContentTokenCount: 2,
         candidatesTokenCount: 5,
-        totalTokenCount: 8,
+        totalTokenCount: 17,
       });
 
       const parts = response.candidates?.[0]?.content?.parts || [];

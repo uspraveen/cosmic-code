@@ -206,11 +206,17 @@ export class AnthropicContentConverter {
 
     if (response.usage) {
       const promptTokens = response.usage.input_tokens || 0;
+      const cacheReadTokens = response.usage.cache_read_input_tokens || 0;
+      const cacheCreationTokens =
+        response.usage.cache_creation_input_tokens || 0;
       const completionTokens = response.usage.output_tokens || 0;
+      const totalPromptTokens =
+        promptTokens + cacheReadTokens + cacheCreationTokens;
       geminiResponse.usageMetadata = {
-        promptTokenCount: promptTokens,
+        promptTokenCount: totalPromptTokens,
+        cachedContentTokenCount: cacheReadTokens,
         candidatesTokenCount: completionTokens,
-        totalTokenCount: promptTokens + completionTokens,
+        totalTokenCount: totalPromptTokens + completionTokens,
       };
     }
 
