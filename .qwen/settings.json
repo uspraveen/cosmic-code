@@ -32,7 +32,7 @@
         "generationConfig": {
           "contextWindowSize": 198000,
           "samplingParams": {
-            "max_tokens": 4096,
+            "max_tokens": 25344,
             "top_p": 1,
             "top_k": 40,
             "presence_penalty": 0,
